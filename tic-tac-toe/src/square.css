@@ -1,0 +1,12 @@
+.squareStyle  {
+    width:150;
+    height:150;
+    background-image: linear-gradient(blue,black,blue);
+}
+  
+.bigblue {
+    color: DodgerBlue;
+    padding: 40px;
+    font-family: Arial;
+    text-align: center;
+}
