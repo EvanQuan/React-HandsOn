@@ -1,6 +1,6 @@
 // @ts-check
 import React from 'react';
-import State from './State';
+import SquareState from './SquareState';
 
 /**
  * A square of a grid in a Tic Tac Toe board.
@@ -49,8 +49,8 @@ class Square extends React.Component {
     return (
       <button
         style={
-          this.props.value === State.PLAYER_X ? buttonStylePlayerX :
-          this.props.value === State.PLAYER_O ? buttonStylePlayerO :
+          this.props.value === SquareState.PLAYER_X ? buttonStylePlayerX :
+          this.props.value === SquareState.PLAYER_O ? buttonStylePlayerO :
                                                 buttonStyleDefault }
         onClick={() => this.props.onClick()}
         // disabled={(this.props.value === 'X'||this.props.value=== 'O')}

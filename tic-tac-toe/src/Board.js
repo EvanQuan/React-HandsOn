@@ -1,7 +1,7 @@
 // @ts-check
 import React from 'react';
 import Square from './Square';
-import State from './State';
+import SquareState from './SquareState';
 
 /**
  * A Tic-Tac-Toe board. Contains a grid of squares.
@@ -20,15 +20,15 @@ class Board extends React.Component {
        * @type {string[][]} squares 9x9 grid of {@link Square} values.
        */
       squares: [
-        [ State.EMPTY, State.EMPTY, State.EMPTY ],
-        [ State.EMPTY, State.EMPTY, State.EMPTY ],
-        [ State.EMPTY, State.EMPTY, State.EMPTY ],
+        [ SquareState.EMPTY, SquareState.EMPTY, SquareState.EMPTY ],
+        [ SquareState.EMPTY, SquareState.EMPTY, SquareState.EMPTY ],
+        [ SquareState.EMPTY, SquareState.EMPTY, SquareState.EMPTY ],
       ],
 
       /**
        * @type {string} The next player to move.
        */
-      nextPlayer: State.PLAYER_X
+      nextPlayer: SquareState.PLAYER_X
     }
   }
 
@@ -69,8 +69,8 @@ class Board extends React.Component {
     // Do nothing if the game is already over or if a player has already filled
     // the square.
     if (
-      squares[row][column] !== State.EMPTY
-      || calculateWinner(squares) !== State.EMPTY
+      squares[row][column] !== SquareState.EMPTY
+      || calculateWinner(squares) !== SquareState.EMPTY
     ) {
       return;
     }
@@ -92,8 +92,8 @@ class Board extends React.Component {
    */
   toggleNextPlayer() {
     this.setState({ nextPlayer:
-      this.state.nextPlayer === State.PLAYER_X ? State.PLAYER_O :
-                                                 State.PLAYER_X });
+      this.state.nextPlayer === SquareState.PLAYER_X ? SquareState.PLAYER_O :
+                                                 SquareState.PLAYER_X });
   }
 
   /**
@@ -132,7 +132,7 @@ function getWinner(winner, squares, line) {
   ] = line;
 
   return (
-    squares[row1][column1] !== State.EMPTY
+    squares[row1][column1] !== SquareState.EMPTY
     && squares[row1][column1] === squares[row2][column2]
     && squares[row2][column2] === squares[row3][column3]
   )
@@ -166,7 +166,7 @@ function calculateWinner(squares) {
 
   const getWinnerOfBoard = (winner, line) => getWinner(winner, squares, line);
 
-  return lines.reduce(getWinnerOfBoard, State.EMPTY);
+  return lines.reduce(getWinnerOfBoard, SquareState.EMPTY);
 }
 
 /**
@@ -182,7 +182,7 @@ function getStatus(squares, nextPlayer) {
    */
   const winner = calculateWinner(squares);
   return (
-    winner === State.EMPTY
+    winner === SquareState.EMPTY
     ? 'Next player: ' + nextPlayer
     : 'Winner: ' + winner
   );

@@ -2,7 +2,7 @@
 /**
  * {@link Square} states.
  */
-const State = {
+const SquareState = {
   /**
    * @type {string} The state of a {@link Square} that represents Player X.
    */
@@ -20,4 +20,4 @@ const State = {
   EMPTY: 'E'
 }
 
-export default State;
+export default SquareState;
