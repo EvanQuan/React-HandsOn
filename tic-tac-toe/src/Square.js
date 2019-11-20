@@ -1,13 +1,14 @@
+// @ts-check
 import React from 'react';
 import State from './State';
-import styles from './square.css';
+
 /**
  * A square of a grid in a Tic Tac Toe board.
  */
 class Square extends React.Component {
 
   /**
-   * @returns the contents of the square to render.
+   * @returns {JSX.Element} the contents of the square to render.
    */
   render() {
 
@@ -21,7 +22,7 @@ class Square extends React.Component {
       color:'cadetblue',
       fontSize:'125px',
       padding:'1px !important'
-    } 
+    }
 
     /**
      * Button style for the 'O' player.
@@ -32,7 +33,7 @@ class Square extends React.Component {
       backgroundColor:'darkblue',
       fontSize:'125px',
       padding:'1px !important'
-    } 
+    }
 
     /**
      * Button style for the 'X' player.
@@ -43,16 +44,19 @@ class Square extends React.Component {
       backgroundColor:'darkgray',
       fontSize:'125px',
       padding:'1px !important'
-    } 
+    }
 
     return (
       <button
-        style={this.props.value === 'X' ? buttonStylePlayerX: this.props.value=== 'O' ? buttonStylePlayerO: buttonStyleDefault } 
+        style={
+          this.props.value === State.PLAYER_X ? buttonStylePlayerX :
+          this.props.value === State.PLAYER_O ? buttonStylePlayerO :
+                                                buttonStyleDefault }
         onClick={() => this.props.onClick()}
         // disabled={(this.props.value === 'X'||this.props.value=== 'O')}
       >
         {this.props.value}
-        
+
       </button>
     );
   }

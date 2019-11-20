@@ -1,3 +1,4 @@
+// @ts-check
 import React from 'react';
 import Square from './Square';
 import State from './State';
@@ -9,22 +10,23 @@ class Board extends React.Component {
 
   /**
    * Default constructor.
-   * @param {Object} props immutable data to render
+   * @param {any} props immutable data to render
    */
   constructor(props) {
     super(props);
 
     this.state = {
       /**
-       * @type {State[][]} squares 9x9 grid of {@link Square} values.
+       * @type {string[][]} squares 9x9 grid of {@link Square} values.
        */
       squares: [
         [ State.EMPTY, State.EMPTY, State.EMPTY ],
         [ State.EMPTY, State.EMPTY, State.EMPTY ],
         [ State.EMPTY, State.EMPTY, State.EMPTY ],
       ],
+
       /**
-       * @type {State} The next player to move.
+       * @type {string} The next player to move.
        */
       nextPlayer: State.PLAYER_X
     }
@@ -59,7 +61,7 @@ class Board extends React.Component {
    */
   handleClick(row, column) {
     /**
-     * @type {Square[][]} Shallow copy of squares.
+     * @type {string[][]} Shallow copy of squares.
      */
     const squares = this.state.squares.slice();
 
@@ -89,11 +91,13 @@ class Board extends React.Component {
    * Toggle the next player to move.
    */
   toggleNextPlayer() {
-    this.setState({nextPlayer: this.state.nextPlayer === State.PLAYER_X ? State.PLAYER_O : State.PLAYER_X});
+    this.setState({ nextPlayer:
+      this.state.nextPlayer === State.PLAYER_X ? State.PLAYER_O :
+                                                 State.PLAYER_X });
   }
 
   /**
-   * @param {Square} value of the square on the board.
+   * @param {string} value of the square on the board.
    * @param {number} row of the square on the board.
    * @param {number} column of the square on the board.
    * @returns {JSX.Element} The square to render.
@@ -115,10 +119,10 @@ export default Board;
 /**
  * Get the winner of a row if it is entirely filled by a player.
  *
- * @param {State} winner if already found; otherwise {@link State.EMPTY}.
- * @param {Square[][]} squares game board grid.
+ * @param {string} winner if already found; otherwise {@link State.EMPTY}.
+ * @param {string[][]} squares game board grid.
  * @param {number[][]} line indices
- * @return {State} the winner if it exists; otherwise {@link State.EMPTY}.
+ * @return {string} the winner if it exists; otherwise {@link State.EMPTY}.
  */
 function getWinner(winner, squares, line) {
   const [
@@ -139,8 +143,8 @@ function getWinner(winner, squares, line) {
 /**
  * Calculate the winner of the game given the specified game board grid.
  *
- * @param {Square[][]} squares game board grid.
- * @returns {State} The winner of the game; otherwise, {@link State.EMPTY};
+ * @param {string[][]} squares game board grid.
+ * @returns {string} The winner of the game; otherwise, {@link State.EMPTY};
  */
 function calculateWinner(squares) {
   /**
@@ -168,8 +172,8 @@ function calculateWinner(squares) {
 /**
  * Get the status of the game.
  *
- * @param {Square[][]} squares game board grid.
- * @param {State} nextPlayer next player to move.
+ * @param {string[][]} squares game board grid.
+ * @param {string} nextPlayer next player to move.
  * @returns {string} the status of the game.
  */
 function getStatus(squares, nextPlayer) {
