@@ -88,8 +88,9 @@ class Board extends React.Component {
     toggleNextPlayer() {
         this.setState({
             nextPlayer:
-                this.state.nextPlayer === SquareState.PLAYER_X ? SquareState.PLAYER_O :
-                    SquareState.PLAYER_X
+                this.state.nextPlayer === SquareState.PLAYER_X
+                    ? SquareState.PLAYER_O
+                    : SquareState.PLAYER_X
         });
     }
 

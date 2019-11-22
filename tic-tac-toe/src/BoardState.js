@@ -20,13 +20,13 @@ class BoardState {
         /**
          * @type {string[][]} 9x9 grid.
          */
-        this.squares = squares === null ?
-            [
+        this.squares = squares === null
+            ? [
                 [SquareState.EMPTY, SquareState.EMPTY, SquareState.EMPTY],
                 [SquareState.EMPTY, SquareState.EMPTY, SquareState.EMPTY],
                 [SquareState.EMPTY, SquareState.EMPTY, SquareState.EMPTY],
-            ] :
-            squares;
+            ]
+            : squares;
     }
 
     /**
@@ -39,7 +39,7 @@ class BoardState {
      *                       value.
      */
     update(row, column, value) {
-        var squaresCopy = this.squares.slice();
+        const squaresCopy = this.squares.slice();
         squaresCopy[row][column] = value;
         return new BoardState(squaresCopy);
     }

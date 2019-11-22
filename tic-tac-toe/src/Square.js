@@ -15,9 +15,11 @@ class Square extends React.Component {
         return (
             <button
                 style={
-                    this.props.value === SquareState.PLAYER_X ? SquareStyle.PLAYER_X :
-                        this.props.value === SquareState.PLAYER_O ? SquareStyle.PLAYER_O :
-                            SquareStyle.DEFAULT}
+                    this.props.value === SquareState.PLAYER_X
+                        ? SquareStyle.PLAYER_X
+                        : this.props.value === SquareState.PLAYER_O
+                            ? SquareStyle.PLAYER_O
+                            : SquareStyle.DEFAULT}
                 onClick={this.props.onClick}
             >
                 {this.props.value}
