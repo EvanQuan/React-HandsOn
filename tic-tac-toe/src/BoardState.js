@@ -55,6 +55,13 @@ class BoardState {
     at(row, column) {
         return this.squares[row][column];
     }
+
+    /**
+     * @param {(value: string[], index: number, array: string[][]) => any} callbackfn
+     */
+    map(callbackfn) {
+        return this.squares.map(callbackfn)
+    }
 }
 
 export default BoardState;

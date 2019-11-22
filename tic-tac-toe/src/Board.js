@@ -2,9 +2,10 @@
 import React from 'react';
 import Square from './Square';
 import SquareState from './SquareState';
+import BoardState from './BoardState';
 
 /**
- * A Tic-Tac-Toe board. Contains a grid of squares.
+ * A Tic-Tac-Toe board. Contains a {@link BoardState}
  */
 class Board extends React.Component {
 
@@ -17,13 +18,9 @@ class Board extends React.Component {
 
     this.state = {
       /**
-       * @type {string[][]} squares 9x9 grid of {@link Square} values.
+       * @type {BoardState} squares 9x9 grid of {@link Square} values.
        */
-      squares: [
-        [ SquareState.EMPTY, SquareState.EMPTY, SquareState.EMPTY ],
-        [ SquareState.EMPTY, SquareState.EMPTY, SquareState.EMPTY ],
-        [ SquareState.EMPTY, SquareState.EMPTY, SquareState.EMPTY ],
-      ],
+      boardState: BoardState.EMPTY,
 
       /**
        * @type {string} The next player to move.
@@ -40,12 +37,12 @@ class Board extends React.Component {
      * @type {string} Title displaying the next player to go, or if the game
      *                has already been won.
      */
-    const status = getStatus(this.state.squares, this.state.nextPlayer);
+    const status = getStatus(this.state.boardState, this.state.nextPlayer);
 
     return (
       <div style={{textAlign:'center'}}>
         {status}
-        {this.state.squares.map((row, rowIndex) =>
+        {this.state.boardState.map((row, rowIndex) =>
           <div key={rowIndex}>
             {row.map((square, columnIndex) => this.renderSquare(square, rowIndex, columnIndex))}
           </div>
@@ -61,27 +58,25 @@ class Board extends React.Component {
    */
   handleClick(row, column) {
     /**
-     * @type {string[][]} Shallow copy of squares.
+     * @type {BoardState} Shallow copy of squares.
      */
-    const squares = this.state.squares.slice();
+    const boardState = this.state.boardState;
 
     debugger;
     // Do nothing if the game is already over or if a player has already filled
     // the square.
     if (
-      squares[row][column] !== SquareState.EMPTY
-      || calculateWinner(squares) !== SquareState.EMPTY
+      boardState.at(row, column) !== SquareState.EMPTY
+      || calculateWinner(boardState) !== SquareState.EMPTY
     ) {
       return;
     }
 
-    /**
-     * @type
-     */
-    squares[row][column] = this.state.nextPlayer;
+    const updatedBoardState = boardState
+      .update(row, column, this.state.nextPlayer);
 
     // Update the board.
-    this.setState({squares : squares});
+    this.setState({squares : updatedBoardState});
 
     // Update the next next player.
     this.toggleNextPlayer();
@@ -120,11 +115,11 @@ export default Board;
  * Get the winner of a row if it is entirely filled by a player.
  *
  * @param {string} winner if already found; otherwise {@link State.EMPTY}.
- * @param {string[][]} squares game board grid.
+ * @param {BoardState} boardState game board grid.
  * @param {number[][]} line indices
  * @return {string} the winner if it exists; otherwise {@link State.EMPTY}.
  */
-function getWinner(winner, squares, line) {
+function getWinner(winner, boardState, line) {
   const [
     [row1, column1],
     [row2, column2],
@@ -132,21 +127,21 @@ function getWinner(winner, squares, line) {
   ] = line;
 
   return (
-    squares[row1][column1] !== SquareState.EMPTY
-    && squares[row1][column1] === squares[row2][column2]
-    && squares[row2][column2] === squares[row3][column3]
+    boardState.at(row1, column1) !== SquareState.EMPTY
+    && boardState.at(row1, column1) === boardState.at(row2, column2)
+    && boardState.at(row2, column2) === boardState.at(row3, column3)
   )
-  ? squares[row1][column1]
+  ? boardState.at(row1, column1)
   : winner;
 }
 
 /**
  * Calculate the winner of the game given the specified game board grid.
  *
- * @param {string[][]} squares game board grid.
+ * @param {BoardState} boardState game board grid.
  * @returns {string} The winner of the game; otherwise, {@link State.EMPTY};
  */
-function calculateWinner(squares) {
+function calculateWinner(boardState) {
   /**
    * @type {number[][][]} Arrays of points that constitute a line in the grid.
    */
@@ -164,7 +159,11 @@ function calculateWinner(squares) {
     [[0, 2], [1, 1], [2, 0]],
   ];
 
-  const getWinnerOfBoard = (winner, line) => getWinner(winner, squares, line);
+  /**
+   * @param {string} winner if already found; otherwise {@link State.EMPTY}.
+   * @param {number[][]} line indices
+   */
+  const getWinnerOfBoard = (winner, line) => getWinner(winner, boardState, line);
 
   return lines.reduce(getWinnerOfBoard, SquareState.EMPTY);
 }
@@ -172,15 +171,15 @@ function calculateWinner(squares) {
 /**
  * Get the status of the game.
  *
- * @param {string[][]} squares game board grid.
+ * @param {BoardState} boardState game board grid.
  * @param {string} nextPlayer next player to move.
  * @returns {string} the status of the game.
  */
-function getStatus(squares, nextPlayer) {
+function getStatus(boardState, nextPlayer) {
   /**
    * @type {string} calculated winner.
    */
-  const winner = calculateWinner(squares);
+  const winner = calculateWinner(boardState);
   return (
     winner === SquareState.EMPTY
     ? 'Next player: ' + nextPlayer
