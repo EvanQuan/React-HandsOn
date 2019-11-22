@@ -18,12 +18,24 @@ class Game extends React.Component {
 
         this.state = {
             history: [{
-                squares: new BoardState()
+                squares: BoardState.EMPTY
             }],
 
             nextPlayer: SquareState.PLAYER_X,
         }
     }
 
+    /**
+     * @returns
+     */
+    render() {
+        return (
+            <div className="game">
+                <div>
+
+                </div>
+            </div>
+        );
+    }
 
 }

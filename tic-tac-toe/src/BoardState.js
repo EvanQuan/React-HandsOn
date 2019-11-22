@@ -6,6 +6,16 @@ import SquareState from './SquareState';
  */
 class BoardState {
 
+    /**
+     * @returns {BoardState} An empty board state.
+     */
+    static EMPTY = new BoardState();
+
+    /**
+     * Creates a new board state with the given square values.
+     *
+     * @param {string[][]} squares
+     */
     constructor(squares = null) {
         if (squares === null) {
             /**
@@ -30,7 +40,7 @@ class BoardState {
      * @returns {BoardState} a new copy of the board state with the updated value.
      */
     update(row, column, value) {
-        var squaresCopy = this.#squares.slice();
+        var squaresCopy = this.squares.slice();
         squaresCopy[row][column] = value;
         return new BoardState(squaresCopy);
     }
@@ -45,7 +55,6 @@ class BoardState {
     at(row, column) {
         return this.squares[row][column];
     }
-
 }
 
 export default BoardState;
