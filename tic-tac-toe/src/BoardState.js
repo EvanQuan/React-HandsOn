@@ -17,18 +17,16 @@ class BoardState {
      * @param {string[][]} squares
      */
     constructor(squares = null) {
-        if (squares === null) {
-            /**
-             * @type {string[][]} 9x9 grid.
-             */
-            this.squares = [
+        /**
+         * @type {string[][]} 9x9 grid.
+         */
+        this.squares = squares === null ?
+            [
                 [SquareState.EMPTY, SquareState.EMPTY, SquareState.EMPTY],
                 [SquareState.EMPTY, SquareState.EMPTY, SquareState.EMPTY],
                 [SquareState.EMPTY, SquareState.EMPTY, SquareState.EMPTY],
-            ]
-        } else {
-            this.squares = squares;
-        }
+            ] :
+            squares;
     }
 
     /**
@@ -37,7 +35,8 @@ class BoardState {
      * @param {number} row in the grid.
      * @param {number} column in the grid.
      * @param {string} value Updated value at the given position.
-     * @returns {BoardState} a new copy of the board state with the updated value.
+     * @returns {BoardState} a new copy of the board state with the updated
+     *                       value.
      */
     update(row, column, value) {
         var squaresCopy = this.squares.slice();
@@ -57,7 +56,11 @@ class BoardState {
     }
 
     /**
+     * Map {@link callbackfn} over each square in this board state.
+     *
      * @param {(value: string[], index: number, array: string[][]) => any} callbackfn
+     *        Function to apply to each square in the board state.
+     * @returns {any} The board with values retrieved from {@link callbackfn}
      */
     map(callbackfn) {
         return this.squares.map(callbackfn)
