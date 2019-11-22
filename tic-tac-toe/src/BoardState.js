@@ -22,9 +22,9 @@ class BoardState {
              * @type {string[][]} 9x9 grid.
              */
             this.squares = [
-                [ SquareState.EMPTY, SquareState.EMPTY, SquareState.EMPTY ],
-                [ SquareState.EMPTY, SquareState.EMPTY, SquareState.EMPTY ],
-                [ SquareState.EMPTY, SquareState.EMPTY, SquareState.EMPTY ],
+                [SquareState.EMPTY, SquareState.EMPTY, SquareState.EMPTY],
+                [SquareState.EMPTY, SquareState.EMPTY, SquareState.EMPTY],
+                [SquareState.EMPTY, SquareState.EMPTY, SquareState.EMPTY],
             ]
         } else {
             this.squares = squares;
