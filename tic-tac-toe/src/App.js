@@ -4,7 +4,7 @@ import './App.css';
 
 /**
  * Application entry point.
- * @returns The entire application to render.
+ * @returns {JSX.Element} The entire application to render.
  */
 function App() {
   return (

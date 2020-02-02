@@ -1,61 +1,32 @@
+// @ts-check
 import React from 'react';
-import State from './State';
-import styles from './square.css';
+import SquareState from './SquareState';
+import SquareStyle from './SquareStyle';
+
 /**
  * A square of a grid in a Tic Tac Toe board.
  */
 class Square extends React.Component {
 
-  /**
-   * @returns the contents of the square to render.
-   */
-  render() {
-
     /**
-     * Default button style.
+     * @returns {JSX.Element} the contents of the square to render.
      */
-    const buttonStyleDefault = {
-      width:'145px',
-      height:'145px',
-      backgroundColor:'cadetblue',
-      color:'cadetblue',
-      fontSize:'125px',
-      padding:'1px !important'
-    } 
+    render() {
+        return (
+            <button
+                style={
+                    this.props.value === SquareState.PLAYER_X
+                        ? SquareStyle.PLAYER_X
+                        : this.props.value === SquareState.PLAYER_O
+                            ? SquareStyle.PLAYER_O
+                            : SquareStyle.DEFAULT}
+                onClick={this.props.onClick}
+            >
+                {this.props.value}
 
-    /**
-     * Button style for the 'O' player.
-     */
-    const buttonStylePlayerO = {
-      width:'145px',
-      height:'145px',
-      backgroundColor:'darkblue',
-      fontSize:'125px',
-      padding:'1px !important'
-    } 
-
-    /**
-     * Button style for the 'X' player.
-     */
-    const buttonStylePlayerX = {
-      width:'145px',
-      height:'145px',
-      backgroundColor:'darkgray',
-      fontSize:'125px',
-      padding:'1px !important'
-    } 
-
-    return (
-      <button
-        style={this.props.value === 'X' ? buttonStylePlayerX: this.props.value=== 'O' ? buttonStylePlayerO: buttonStyleDefault } 
-        onClick={() => this.props.onClick()}
-        // disabled={(this.props.value === 'X'||this.props.value=== 'O')}
-      >
-        {this.props.value}
-        
-      </button>
-    );
-  }
+            </button>
+        );
+    }
 }
 
 export default Square;
